@@ -21,7 +21,7 @@ class AuthorsController < ApplicationController
 
   # POST /authors or /authors.json
   def create
-    @author = Author.update(author_params)
+    @author = Author.new(author_params)
 
     respond_to do |format|
       if @author.save
@@ -65,6 +65,6 @@ class AuthorsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def author_params
-      params.require(:authors).permit(:name)
+      params.require(:author).permit(:name)
     end
 end
