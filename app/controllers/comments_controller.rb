@@ -21,9 +21,7 @@ class CommentsController < ApplicationController
 
   # POST /comments or /comments.json
   def create
-    new_params = comment_params
-    new_params[:writer_id] = new_params.delete(:author_id)
-    @comment = Comment.new(new_params)
+    @comment = Comment.new(comment_params)
 
     respond_to do |format|
       if @comment.save
@@ -67,6 +65,6 @@ class CommentsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def comment_params
-      params.require(:comment).permit(:title, :author_id)
+      params.require(:comment).permit(:title, :author_id).transform_keys { |key| key == 'author_id' ? 'writer_id' : key }
     end
 end
